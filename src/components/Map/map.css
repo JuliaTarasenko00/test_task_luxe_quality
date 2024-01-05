@@ -1,0 +1,12 @@
+.map-wrap {
+  position: relative;
+  width: calc(100% - 568px);
+  height: calc(100vh - 108px);
+  z-index: 1;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
