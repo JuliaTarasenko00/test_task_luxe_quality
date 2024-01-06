@@ -1,22 +1,36 @@
 import { Suspense } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { FiPlus } from 'react-icons/fi';
 import { Container } from '../../globalStyle';
+import {
+  ButtonAdvertisement,
+  ButtonLanguage,
+  Header,
+  Link,
+  LogoName,
+  Wrapper,
+  WrapperButton,
+} from './Layout.styled';
 
 const Layout = () => {
   return (
     <>
-      <header>
+      <Header>
         <Container>
-          <div>
-            <p>rentzila</p>
-            <NavLink to="/">Оголошення</NavLink>
-            <div>
-              <button type="button">+ Подати оголошення</button>
-              <button type="button">УКР / UAH</button>
-            </div>
-          </div>
+          <Wrapper>
+            <LogoName>Rentzila</LogoName>
+            <Link to="/" activeclassname="active">
+              Оголошення
+            </Link>
+            <WrapperButton>
+              <ButtonAdvertisement type="button">
+                <FiPlus /> Подати оголошення
+              </ButtonAdvertisement>
+              <ButtonLanguage type="button">УКР / UAH</ButtonLanguage>
+            </WrapperButton>
+          </Wrapper>
         </Container>
-      </header>
+      </Header>
       <main>
         <Suspense fallback={<p>Loading...</p>}>
           <Outlet />

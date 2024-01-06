@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { ref, child, get } from 'firebase/database';
-import { database } from '../../components/config/firebase-config';
-import { AdvertisementComponent } from '../../components/Advertisement/Advertisement';
+import { child, get, ref } from 'firebase/database';
 import { FilterComponent } from '../../components/Filter/Filter';
 import { MapComponent } from '../../components/Map/Map';
 import { Container } from '../../globalStyle';
 import { Wrapper } from './Home.styled';
+import { AdvertisementComponent } from '../../components/Advertisement/Advertisement';
+import { database } from '../../components/config/firebase-config';
 
 const HomePage = () => {
   const [advertisement, setAdvertisement] = useState([]);
@@ -27,12 +27,17 @@ const HomePage = () => {
     fetchAdvertisement();
   }, [dbRef]);
 
+  const locationMarker = Object.entries(advertisement).map(name => ({
+    location: [name[1].lng, name[1].lat],
+    id: name[0],
+  }));
+
   return (
     <section>
       <Container>
         <Wrapper>
           <FilterComponent />
-          <MapComponent advertisement={Object.entries(advertisement)} />
+          <MapComponent locationMarker={locationMarker} />
           <AdvertisementComponent
             advertisement={Object.values(advertisement)}
           />

@@ -49,8 +49,22 @@ button{
 }
 
 svg{
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-thumb{
+border-radius: 10px;
+background-color: #404b698c;
+ 
+}
+::-webkit-scrollbar-track{
+background-color:rgb(64 75 105 / 33%);
+
 }
 
 

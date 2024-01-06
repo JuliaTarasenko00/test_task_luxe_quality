@@ -1,39 +1,52 @@
 import PropTypes from 'prop-types';
 import { GrLocation } from 'react-icons/gr';
 import { IoMdHeartEmpty } from 'react-icons/io';
+import {
+  ButtonFavorite,
+  City,
+  Img,
+  Item,
+  List,
+  MinimalPrice,
+  MinimalPriceTitle,
+  ModelName,
+  Name,
+  Rating,
+  WrapperDescription,
+  WrapperImg,
+} from './AdvertisementsMarkup.styled';
 
 export const AdvertisementsMarkup = ({ items }) => {
   return (
-    <ul>
+    <List>
       {items.map(
-        ({ city, minimal_price_UAH, id, model_name, name, rating }) => {
+        ({ city, minimal_price_UAH, id, model_name, name, rating, images }) => {
           return (
-            <li key={id}>
-              <div>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhYutdY3RvPyroS4uQ048ou9SsoYERPb93qv5CrGkCvYxUcjGWFY19NRfGym7ajBgrPfo&usqp=CAU"
-                  alt={name}
-                />
-                <button type="button">
+            <Item key={id}>
+              <WrapperImg>
+                <Img src={images} alt={name} />
+                <ButtonFavorite type="button">
                   <IoMdHeartEmpty />
-                </button>
-              </div>
-              <div>
-                <h3>{name}</h3>
-                <p>{model_name}</p>
-                <p>rating {rating}</p>
-                <p>Мiнiмальна вартiсть послуги</p>
-                <p>{minimal_price_UAH} грн</p>
-                <p>
+                </ButtonFavorite>
+              </WrapperImg>
+              <WrapperDescription>
+                <Name>{name}</Name>
+                <ModelName>{model_name}</ModelName>
+                <Rating>rating {rating}</Rating>
+                <MinimalPriceTitle>
+                  Мiнiмальна вартiсть послуги
+                </MinimalPriceTitle>
+                <MinimalPrice>{minimal_price_UAH} грн</MinimalPrice>
+                <City>
                   <GrLocation />
                   {city}
-                </p>
-              </div>
-            </li>
+                </City>
+              </WrapperDescription>
+            </Item>
           );
         }
       )}
-    </ul>
+    </List>
   );
 };
 
