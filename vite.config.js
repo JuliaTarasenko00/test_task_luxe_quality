@@ -10,6 +10,6 @@ export default defineConfig({
       components: './src/components',
     },
   },
-  base: '/rentzila',
+  base: '/test_task_luxe_quality',
   publicDir: 'public',
 });
