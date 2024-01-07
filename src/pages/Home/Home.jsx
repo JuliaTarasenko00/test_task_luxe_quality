@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
-import { child, get, ref } from 'firebase/database';
-import { FilterComponent } from '../../components/Filter/Filter';
+import { useCallback, useEffect, useState } from 'react';
+import { child, get, onValue, ref } from 'firebase/database';
 import { MapComponent } from '../../components/Map/Map';
 import { Container } from '../../globalStyle';
 import { Wrapper } from './Home.styled';
 import { AdvertisementComponent } from '../../components/Advertisement/Advertisement';
 import { database } from '../../components/config/firebase-config';
+import { useDispatch } from 'react-redux';
+import { addCard } from '../../components/redux/slice';
 
 const HomePage = () => {
-  const [advertisement, setAdvertisement] = useState([]);
   const dbRef = ref(database);
+  const dispatch = useDispatch();
+  const [advertisement, setAdvertisement] = useState([]);
 
   useEffect(() => {
     async function fetchAdvertisement() {
@@ -17,6 +19,7 @@ const HomePage = () => {
         const data = await get(child(dbRef, 'advertisement'));
         if (data.exists()) {
           setAdvertisement(data.val());
+          dispatch(addCard(Object.values(data.val())));
         } else {
           console.log('No data available for advertisement');
         }
@@ -25,22 +28,42 @@ const HomePage = () => {
       }
     }
     fetchAdvertisement();
-  }, [dbRef]);
+  }, [dbRef, dispatch]);
 
   const locationMarker = Object.entries(advertisement).map(name => ({
     location: [name[1].lng, name[1].lat],
     id: name[0],
   }));
 
+  const getAdvertisement = useCallback(
+    ids => {
+      let cards = [];
+
+      if (!Array.isArray(ids)) {
+        ids = [ids];
+      }
+
+      ids.forEach(id => {
+        const adRef = ref(database, `/advertisement/${id}`);
+        onValue(adRef, snapshot => {
+          const data = snapshot.val();
+          cards = [...cards, data];
+        });
+      });
+      return dispatch(addCard(cards));
+    },
+    [dispatch]
+  );
+
   return (
     <section>
       <Container>
         <Wrapper>
-          <FilterComponent />
-          <MapComponent locationMarker={locationMarker} />
-          <AdvertisementComponent
-            advertisement={Object.values(advertisement)}
+          <MapComponent
+            locationMarker={locationMarker}
+            getAdvertisement={getAdvertisement}
           />
+          <AdvertisementComponent />
         </Wrapper>
       </Container>
     </section>

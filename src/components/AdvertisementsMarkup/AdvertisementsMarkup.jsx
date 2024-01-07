@@ -56,7 +56,7 @@ AdvertisementsMarkup.propTypes = {
       city: PropTypes.string,
       minimal_price_UAH: PropTypes.number,
       image: PropTypes.string,
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       model_name: PropTypes.string,
       name: PropTypes.string,
       rating: PropTypes.number,

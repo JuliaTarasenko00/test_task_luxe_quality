@@ -3,13 +3,12 @@ import { Outlet } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
 import { Container } from '../../globalStyle';
 import {
-  ButtonAdvertisement,
   ButtonLanguage,
   Header,
   Link,
   LogoName,
+  Nav,
   Wrapper,
-  WrapperButton,
 } from './Layout.styled';
 
 const Layout = () => {
@@ -19,15 +18,16 @@ const Layout = () => {
         <Container>
           <Wrapper>
             <LogoName>Rentzila</LogoName>
-            <Link to="/" activeclassname="active">
-              Оголошення
-            </Link>
-            <WrapperButton>
-              <ButtonAdvertisement type="button">
+            <Nav>
+              <Link to="/" activeclassname="active">
+                Оголошення
+              </Link>
+
+              <Link to="create-unit" className="create">
                 <FiPlus /> Подати оголошення
-              </ButtonAdvertisement>
-              <ButtonLanguage type="button">УКР / UAH</ButtonLanguage>
-            </WrapperButton>
+              </Link>
+            </Nav>
+            <ButtonLanguage type="button">УКР / UAH</ButtonLanguage>
           </Wrapper>
         </Container>
       </Header>

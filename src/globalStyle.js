@@ -12,10 +12,8 @@ margin: 0;
 font-family: 'Roboto',sans-serif;
 font-size: 1rem;
 color: #283149;
-overflow-y: overlay;
 word-spacing: 0.07em;
 background-color: #f2f4f5;
-height: 100vh;
 overflow: hidden;
 }
 

@@ -22,48 +22,41 @@ export const LogoName = styled.p`
   color: #fff;
 `;
 
+export const Nav = styled.nav`
+  display: flex;
+  gap: 100px;
+  align-items: center;
+`;
+
 export const Link = styled(NavLink)`
   text-decoration: none;
   font-weight: 500;
   font-size: 0.875rem;
   color: #fff;
-  transition: color 250ms ease;
+  transition: color 250ms ease, background-color 250ms ease;
 
   &.active {
     color: #ceff7b;
   }
 
+  &.create {
+    padding: 12px 20px;
+    background-color: #ceff7b;
+    border-radius: 30px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
   &:hover,
   :focus {
     color: #98bf56;
-  }
-`;
 
-export const WrapperButton = styled.div`
-  display: flex;
-  gap: 20px;
-  align-items: center;
-`;
-
-export const ButtonAdvertisement = styled.button`
-  display: flex;
-  height: 43px;
-  padding: 12px 20px;
-  border: none;
-  background: #ceff7b;
-  border-radius: 30px;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  justify-content: center;
-  grid-gap: 10px;
-  gap: 10px;
-  margin-right: 20px;
-  transition: background-color 250ms ease;
-
-  &:hover,
-  :focus {
-    background-color: #98bf56;
+    &.create {
+      color: #000;
+      background-color: #98bf56;
+    }
   }
 `;
 
