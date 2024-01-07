@@ -1,4 +1,4 @@
-import{g as dp,e as ox}from"./index-DB6AzB2n.js";var Dm={};/**
+import{g as dp,e as ox}from"./index-teyth2c4.js";var Dm={};/**
  * @license
  * Copyright 2017 Google LLC
  *
@@ -2172,4 +2172,4 @@ uniform ${P} ${k} u_${O};
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */Ca(AT,PT,"app");var Za={VITE_API_TEST:"",BASE_URL:"/rentzila",MODE:"production",DEV:!1,PROD:!0,SSR:!1};const kT=Za.VITE_API_KEY,MT=Za.AUTHDOMAIN,DT=Za.STORAGEBUCKET,LT=Za.MESSAGINGSENDERID,RT=Za.APPID,zT=Za.MEASUREMENTID,OT={apiKey:kT,authDomain:MT,databaseURL:"https://rentzila-408d3-default-rtdb.firebaseio.com",projectId:"rentzila-408d3",storageBucket:DT,messagingSenderId:LT,appId:RT,measurementId:zT};cg(OT);const iI=U2();export{Tt as L,TT as M,jT as P,TS as a,qT as b,fs as c,iI as d,su as e,VT as g,$T as o,BT as r,UT as s};
+ */Ca(AT,PT,"app");var Za={VITE_API_TEST:"",BASE_URL:"/test_task_luxe_quality",MODE:"production",DEV:!1,PROD:!0,SSR:!1};const kT=Za.VITE_API_KEY,MT=Za.AUTHDOMAIN,DT=Za.STORAGEBUCKET,LT=Za.MESSAGINGSENDERID,RT=Za.APPID,zT=Za.MEASUREMENTID,OT={apiKey:kT,authDomain:MT,databaseURL:"https://rentzila-408d3-default-rtdb.firebaseio.com",projectId:"rentzila-408d3",storageBucket:DT,messagingSenderId:LT,appId:RT,measurementId:zT};cg(OT);const iI=U2();export{Tt as L,TT as M,jT as P,TS as a,qT as b,fs as c,iI as d,su as e,VT as g,$T as o,BT as r,UT as s};
