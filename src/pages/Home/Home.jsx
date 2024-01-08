@@ -6,7 +6,9 @@ import { Wrapper } from './Home.styled';
 import { AdvertisementComponent } from '../../components/Advertisement/Advertisement';
 import { database } from '../../components/config/firebase-config';
 import { useDispatch } from 'react-redux';
-import { addCard } from '../../components/redux/slice';
+import { addCard } from '../../redux/slice';
+import { toast } from 'react-toastify';
+import { styleToastify } from '../../components/toastify';
 
 const HomePage = () => {
   const dbRef = ref(database);
@@ -24,7 +26,8 @@ const HomePage = () => {
           console.log('No data available for advertisement');
         }
       } catch (error) {
-        console.error('Error fetching advertisement:', error);
+        toast.error('Error fetching advertisement', styleToastify);
+        console.log('Error fetching advertisement:', error);
       }
     }
     fetchAdvertisement();

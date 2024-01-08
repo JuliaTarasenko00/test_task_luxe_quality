@@ -40,6 +40,7 @@ export const TitleLocationTechnical = styled.p`
 `;
 
 export const ButtonSelectMap = styled.button`
+  cursor: pointer;
   display: block;
   padding: 15px;
   background-color: #283149;
@@ -48,17 +49,30 @@ export const ButtonSelectMap = styled.button`
   border-radius: 10px;
   font-size: 0.875rem;
   letter-spacing: -0.02em;
+  transition: background-color 250ms ease;
+
+  &:hover,
+  :focus {
+    background-color: #21232a;
+  }
 `;
 
 export const ButtonSubmit = styled.button`
+  cursor: pointer;
   padding: 12px 20px;
-  background-color: #ceff7b;
+  background-color: #1f7a37;
   border-radius: 30px;
-  color: #000;
+  color: #fff;
   display: flex;
   align-items: center;
   gap: 5px;
   border: none;
+  transition: background-color 250ms ease;
+
+  &:hover,
+  :focus {
+    background-color: #1b602d;
+  }
 `;
 
 export const WrapperInput = styled.div`
@@ -75,4 +89,73 @@ export const ErrorMessage = styled.p`
   font-size: 12px;
   font-style: normal;
   line-height: 1.37;
+
+  &.error_modal_title {
+    position: static;
+  }
+`;
+
+export const WrapperModal = styled.div`
+  background-color: #fff;
+  padding: 35px 20px 50px;
+`;
+
+export const FormModal = styled.form`
+  margin-bottom: 20px;
+`;
+
+export const ButtonSubmitCity = styled.button`
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 50px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #283149;
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 250ms ease;
+
+  &:hover,
+  :focus {
+    background-color: #21232a;
+  }
+`;
+
+export const ButtonCancelCity = styled.button`
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  background-color: transparent;
+  color: #445c9d;
+  left: 50px;
+  text-decoration: underline;
+  border: none;
+  font-size: 1.3rem;
+  transition: color 250ms ease;
+
+  &:hover,
+  :focus {
+    color: #21232a;
+  }
+`;
+
+export const InputSelectImg = styled.input`
+  margin-top: 20px;
+`;
+
+export const DeleteButtonImg = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #ff00009e;
+  text-decoration: underline;
+  font-size: 1rem;
+  transition: color 250ms ease;
+
+  &:hover,
+  :focus {
+    color: red;
+  }
 `;

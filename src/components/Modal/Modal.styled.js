@@ -27,7 +27,7 @@ export const Modal = styled.div`
 
 export const ButtonClose = styled.button`
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 20px;
   cursor: pointer;
   background-color: transparent;
@@ -41,7 +41,7 @@ export const ButtonClose = styled.button`
   }
 
   & svg {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
   }
 `;

@@ -5,18 +5,27 @@ import * as maptilersdk from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import './modalMap.css';
 import { fromAddress, fromLatLng, setDefaults } from 'react-geocode';
+import { Autocomplete, TextField } from '@mui/material';
+import {
+  ButtonCancelCity,
+  ButtonSubmitCity,
+  ErrorMessage,
+  FormModal,
+  WrapperModal,
+} from '../FormCreateUnt.styled';
 
-const MAP_API_KEY = import.meta.env.VITE_MAP_API_KEY;
+const ukraine = { lng: 31.16558, lat: 48.379433 };
+maptilersdk.config.apiKey = 'iu29tgeTe6X0Pbx8qmxf';
+maptilersdk.config.primaryLanguage = maptilersdk.Language.UKRAINIAN;
 
 const MapComponent = ({ setLat, setLng, setFrom }) => {
   const mapContainer = useRef(null);
-  const ukraine = { lng: 31.16558, lat: 48.379433 };
   const map = useRef(null);
-  const [city, setCity] = useState('');
+  const [value, setValue] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
   const [options, setOptions] = useState([]);
   const [locationMarker, setLocationMarker] = useState([]);
 
-  maptilersdk.config.apiKey = MAP_API_KEY;
   setDefaults({
     key: 'AIzaSyAfuHNEvoj6jZhloBjWUz3Lrhq-JQQe6m0',
     language: 'uk',
@@ -30,11 +39,12 @@ const MapComponent = ({ setLat, setLng, setFrom }) => {
       center: [ukraine.lng, ukraine.lat],
       zoom: 4.8,
     });
-    map.current.on('click', e => {
+
+    map.current.on('click', async e => {
       const { lng, lat } = e.lngLat;
       setLocationMarker([lng, lat]);
 
-      getFromLatLng(lng, lat);
+      await getFromLatLng(lng, lat);
     });
 
     if (locationMarker.length !== 0) {
@@ -46,20 +56,21 @@ const MapComponent = ({ setLat, setLng, setFrom }) => {
     // eslint-disable-next-line
   }, [locationMarker]);
 
-  const handelChange = async ev => {
-    const name = ev.target.value;
-    setCity(name);
+  const handelChange = async (ev, newValue) => {
+    if (newValue === '') return;
 
+    setValue(newValue);
     try {
-      const { results } = await fromAddress(name);
+      const { results } = await fromAddress(newValue);
       setOptions(results);
     } catch (error) {
       return;
     }
   };
-
   const handelSubmit = ev => {
     ev.preventDefault();
+
+    if (!value || value === '') return;
 
     const { lat, lng } = options[0].geometry.location;
     setLocationMarker([lng, lat]);
@@ -91,28 +102,54 @@ const MapComponent = ({ setLat, setLng, setFrom }) => {
       const region = [...addressArray].slice(1, 2).join(' ');
       const country = [...addressArray].slice(2).join(' ');
 
-      setFrom({
-        city,
-        region,
-        country,
-      });
-
-      setLat(lng);
-      setLng(lat);
+      setValue(`${city}, ${region}, ${country}`);
     } catch (error) {
-      console.error(error);
+      return;
     }
   };
 
+  const city = !value || value === '';
+
   return (
-    <div style={{ backgroundColor: '#fff', padding: 50 }}>
-      <form onSubmit={handelSubmit}>
-        <input type="text" name="name" value={city} onChange={handelChange} />
-      </form>
+    <WrapperModal>
+      <FormModal onSubmit={handelSubmit}>
+        <Autocomplete
+          options={options?.map(option => `${option.formatted_address}`)}
+          value={value}
+          onChange={(ev, newValue) => setValue(newValue)}
+          onInputChange={handelChange}
+          isOptionEqualToValue={option => option}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label=" Місце розташування технічного засобу"
+            />
+          )}
+        />
+        {city && isSubmit && (
+          <ErrorMessage className="error_modal_title">
+            Це поле обов’язкове
+          </ErrorMessage>
+        )}
+        <ButtonCancelCity
+          type="button"
+          onClick={() => {
+            setValue('');
+            setIsSubmit(false);
+            setOptions([]);
+            setLocationMarker([]);
+          }}
+        >
+          Cancel
+        </ButtonCancelCity>
+        <ButtonSubmitCity type="submit" onClick={() => setIsSubmit(true)}>
+          Підтвердити місце розташування
+        </ButtonSubmitCity>
+      </FormModal>
       <div className="map-wrap-modal">
         <div ref={mapContainer} className="map-modal" />
       </div>
-    </div>
+    </WrapperModal>
   );
 };
 

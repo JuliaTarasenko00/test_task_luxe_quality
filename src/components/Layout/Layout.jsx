@@ -10,6 +10,7 @@ import {
   Nav,
   Wrapper,
 } from './Layout.styled';
+import Loader from '../Loader/Loader';
 
 const Layout = () => {
   return (
@@ -32,7 +33,7 @@ const Layout = () => {
         </Container>
       </Header>
       <main>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </main>

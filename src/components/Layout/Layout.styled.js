@@ -37,13 +37,15 @@ export const Link = styled(NavLink)`
 
   &.active {
     color: #ceff7b;
+    &.create {
+      color: #fff;
+    }
   }
 
   &.create {
     padding: 12px 20px;
-    background-color: #ceff7b;
+    background-color: #1f7a37;
     border-radius: 30px;
-    color: #000;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -54,8 +56,8 @@ export const Link = styled(NavLink)`
     color: #98bf56;
 
     &.create {
-      color: #000;
-      background-color: #98bf56;
+      color: #fff;
+      background-color: #1b602d;
     }
   }
 `;

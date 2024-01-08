@@ -1,11 +1,13 @@
 import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { useModal } from '../../helpers/useModal';
-import { ModalComponent } from '../Modal/Modal';
-import MapComponent from './ModalMap';
 import { nanoid } from 'nanoid';
 import { ref, set } from 'firebase/database';
+import { ModalComponent } from '../Modal/Modal';
+import MapComponent from './components/ModalMap';
 import { database } from '../config/firebase-config';
 import {
   ButtonSelectMap,
@@ -17,6 +19,9 @@ import {
   Wrapper,
   WrapperInput,
 } from './FormCreateUnt.styled';
+import { SelectedImage } from './components/SelectedImage';
+import img from '../../assets/img/not-found.jpg';
+import { styleToastify } from '../toastify';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -33,7 +38,13 @@ const SignupSchema = Yup.object().shape({
     .required('Це поле обов’язкове'),
 });
 
-export const FormCreateUnt = () => {
+const initialValues = {
+  price: '',
+  name: '',
+  modelName: '',
+};
+
+export const FormCreateUnt = ({ setSuccessful }) => {
   const { isOpen, toggleModal } = useModal();
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
@@ -42,34 +53,41 @@ export const FormCreateUnt = () => {
     country: '',
     region: '',
   });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [pathImg, setPath] = useState(null);
 
-  const initialValues = {
-    price: '',
-    name: '',
-    modelName: '',
-  };
+  const handelSubmitForm = async values => {
+    try {
+      const id = nanoid();
 
-  const handelSubmitForm = values => {
-    const id = nanoid();
+      if (lat === 0 || lng === 0) {
+        toast.error(
+          'Виберіть місце розташування технічного засобу!',
+          styleToastify
+        );
+      } else {
+        const images = pathImg ? pathImg : img;
 
-    if (lat === 0 || lng === 0) {
-      alert('7890');
+        await set(ref(database, `advertisement/${id}`), {
+          minimal_price_UAH: Number(values.price),
+          name: values.name,
+          model_name: values.modelName,
+          lat,
+          lng,
+          images,
+          city: from.city,
+          country: from.country,
+          region: from.region,
+          rating: 0,
+          id,
+        });
+        toast.success('Ваше оголошення розміщено', styleToastify);
+        setSuccessful(true);
+      }
+    } catch (error) {
+      toast.error('Упсс щось пішло не так спробуйте ще раз', styleToastify);
+      console.error(error);
     }
-
-    set(ref(database, `advertisement/${id}`), {
-      minimal_price_UAH: Number(values.price),
-      name: values.name,
-      model_name: values.modelName,
-      lat,
-      lng,
-      images:
-        'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg',
-      city: from.city,
-      country: from.country,
-      region: from.region,
-      rating: 0,
-      id,
-    });
   };
 
   return (
@@ -127,6 +145,12 @@ export const FormCreateUnt = () => {
                 <ErrorMessage>* {errors.modelName}</ErrorMessage>
               ) : null}
             </WrapperInput>
+            <SelectedImage
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              setPath={setPath}
+            />
+            {lat !== 0 && lng !== 0 && <p>{Object.values(from).join(', ')}</p>}
             <TitleLocationTechnical>
               Місце розташування технічного засобу <span>*</span>
             </TitleLocationTechnical>
@@ -146,4 +170,8 @@ export const FormCreateUnt = () => {
       )}
     </>
   );
+};
+
+FormCreateUnt.propTypes = {
+  setSuccessful: PropTypes.func.isRequired,
 };
