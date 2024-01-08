@@ -140,7 +140,7 @@ const MapComponent = ({ setLat, setLng, setFrom }) => {
             setLocationMarker([]);
           }}
         >
-          Cancel
+          Скасувати
         </ButtonCancelCity>
         <ButtonSubmitCity type="submit" onClick={() => setIsSubmit(true)}>
           Підтвердити місце розташування
